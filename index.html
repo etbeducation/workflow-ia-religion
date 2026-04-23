@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workflow en Acción · Los Sacramentos · 9mo Grado · ETB.education</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cyan:      #00B4D8;
+    --cyan-mid:  #0096B7;
+    --cyan-light:#90E0EF;
+    --cyan-pale: #CAF0F8;
+    --cyan-bg:   #F0FBFF;
+    --black:     #0D0D0D;
+    --ink:       #1A1A1A;
+    --gray-d:    #333333;
+    --gray-m:    #666666;
+    --gray-l:    #F2F2F2;
+    --gray-b:    #E4E4E4;
+    --white:     #FFFFFF;
+    --green:     #2DC653;
+    --green-bg:  #F0FFF4;
+    --green-b:   #B8DECA;
+    --amber:     #F4A01C;
+    --amber-bg:  #FFFBF0;
+    --amber-b:   #F4D580;
+    --red:       #E05C5C;
+    --red-bg:    #FFF5F5;
+    --red-b:     #FFCDD2;
+    --purple:    #7B5EA7;
+    --purple-bg: #F8F4FF;
+    --purple-b:  #C8BAEA;
+    --blue:      #1A6FA8;
+    --blue-bg:   #F0F6FF;
+    --blue-b:    #B8D0E8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--gray-l);
+    color: var(--ink);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--black);
+    display: flex; gap: 0;
+    overflow-x: auto; scrollbar-width: none;
+    border-bottom: 3px solid var(--cyan);
+  }
+  nav::-webkit-scrollbar { display: none; }
+
+  .nav-brand {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0 1.25rem;
+    border-right: 1px solid #1E1E1E;
+    flex-shrink: 0;
+  }
+  .nav-brand-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.82rem; font-weight: 700;
+    color: var(--white); letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .nav-brand-text span { color: var(--cyan); font-weight: 400; }
+
+  .nav-step {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #555555;
+    padding: 0.75rem 1.1rem; white-space: nowrap;
+    border-right: 1px solid #1E1E1E;
+    text-decoration: none; display: block;
+    transition: all 0.18s;
+  }
+  .nav-step:hover { color: var(--cyan-light); background: rgba(0,180,216,0.08); }
+  .nav-step.active { color: var(--cyan); background: rgba(0,180,216,0.1); border-bottom: 2px solid var(--cyan); }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--black);
+    padding: 2.75rem 2rem 2.25rem;
+    position: relative; overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(0,180,216,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  header::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--cyan) 0%, var(--cyan-light) 60%, transparent 100%);
+  }
+
+  .hero-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--cyan);
+    margin-bottom: 0.75rem;
+  }
+  header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.5rem, 3.5vw, 2.3rem);
+    font-weight: 700; color: var(--white);
+    line-height: 1.2; margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  header h1 em { font-style: italic; color: var(--cyan); font-weight: 400; }
+  .hero-sub { font-size: 0.88rem; color: #777777; max-width: 600px; font-weight: 300; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+  .chip {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem; padding: 0.25rem 0.75rem;
+    border-radius: 3px; border: 1px solid; letter-spacing: 0.08em;
+  }
+  .chip-cyan  { color: var(--cyan); border-color: rgba(0,180,216,0.4); background: rgba(0,180,216,0.07); }
+  .chip-gray  { color: #555555; border-color: #2A2A2A; }
+
+  /* ── MAIN ── */
+  main { max-width: 920px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* ── STEP SECTIONS ── */
+  .step-section { margin-bottom: 3rem; scroll-margin-top: 56px; }
+
+  .step-header {
+    display: flex; align-items: flex-start; gap: 1rem;
+    margin-bottom: 1.25rem; padding-bottom: 0.85rem;
+    border-bottom: 2px solid var(--gray-b);
+  }
+
+  .step-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.14em;
+    text-transform: uppercase; padding: 0.3rem 0.7rem;
+    border-radius: 3px; flex-shrink: 0; margin-top: 0.2rem;
+    font-weight: 500;
+  }
+  .badge-zero   { background: var(--cyan-bg);    color: var(--cyan-mid);  border: 1px solid var(--cyan-pale); }
+  .badge-one    { background: var(--blue-bg);     color: var(--blue);      border: 1px solid var(--blue-b); }
+  .badge-two    { background: var(--green-bg);    color: var(--green);     border: 1px solid var(--green-b); }
+  .badge-three  { background: var(--blue-bg);     color: var(--blue);      border: 1px solid var(--blue-b); }
+  .badge-meta   { background: var(--purple-bg);   color: var(--purple);    border: 1px solid var(--purple-b); }
+  .badge-four   { background: var(--green-bg);    color: var(--green);     border: 1px solid var(--green-b); }
+
+  .step-title-block { flex: 1; }
+  .step-tool {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem; color: var(--gray-m);
+    letter-spacing: 0.06em; margin-bottom: 0.25rem;
+  }
+  .step-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem; font-weight: 700;
+    color: var(--ink); line-height: 1.25;
+  }
+
+  /* ── BOXES ── */
+  .bx-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.16em;
+    text-transform: uppercase; margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .bx-label::after {
+    content: ''; flex: 1; height: 1px;
+    background: currentColor; opacity: 0.15;
+  }
+
+  .behavior-box {
+    background: var(--white);
+    border: 1px solid var(--gray-b);
+    border-radius: 8px; padding: 1.1rem 1.25rem;
+    margin-bottom: 0.85rem;
+    font-size: 0.875rem; color: var(--gray-d); line-height: 1.7;
+  }
+  .behavior-box .bx-label { color: var(--gray-m); }
+
+  .prompt-box {
+    background: var(--blue-bg);
+    border: 1px solid var(--blue-b);
+    border-left: 3px solid var(--cyan);
+    border-radius: 8px; padding: 1.1rem 1.25rem;
+    margin-bottom: 0.85rem;
+  }
+  .prompt-box .bx-label { color: var(--cyan-mid); }
+  .prompt-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem; color: #0A2A40;
+    line-height: 1.75; white-space: pre-wrap;
+  }
+  .prompt-var {
+    background: rgba(0,180,216,0.12);
+    color: var(--cyan-mid); padding: 0 0.3rem;
+    border-radius: 2px; font-style: italic;
+  }
+
+  .output-box {
+    background: var(--green-bg);
+    border: 1px solid var(--green-b);
+    border-left: 3px solid var(--green);
+    border-radius: 8px; padding: 1.1rem 1.25rem;
+    margin-bottom: 0.85rem;
+  }
+  .output-box .bx-label { color: var(--green); }
+  .output-text { font-size: 0.855rem; color: #1A3528; line-height: 1.7; }
+  .output-text strong { font-weight: 700; color: #1A7A35; }
+  .output-text ul { margin: 0.4rem 0 0.4rem 1.2rem; }
+  .output-text li { margin-bottom: 0.25rem; }
+
+  .synthesis-box {
+    background: var(--cyan-bg);
+    border: 1px solid var(--cyan-pale);
+    border-left: 3px solid var(--cyan);
+    border-radius: 8px; padding: 1rem 1.25rem;
+    margin-bottom: 0.85rem;
+  }
+  .synthesis-box .bx-label { color: var(--cyan-mid); }
+  .synthesis-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem; color: #003A50;
+    line-height: 1.8; white-space: pre-wrap;
+  }
+
+  .meta-box {
+    background: var(--purple-bg);
+    border: 1px solid var(--purple-b);
+    border-left: 3px solid var(--purple);
+    border-radius: 8px; padding: 1.1rem 1.25rem;
+    margin-bottom: 0.85rem;
+  }
+  .meta-box .bx-label { color: var(--purple); }
+  .meta-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem; color: #2A1A50;
+    line-height: 1.75; white-space: pre-wrap;
+  }
+
+  .meta-output {
+    background: #EEEAFF;
+    border: 1px solid var(--purple-b);
+    border-left: 3px solid var(--purple);
+    border-radius: 8px; padding: 1.1rem 1.25rem;
+    margin-bottom: 0.85rem;
+  }
+  .meta-output .bx-label { color: var(--purple); }
+  .meta-output-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem; color: #1A0A40;
+    line-height: 1.8; white-space: pre-wrap;
+  }
+  .meta-output-text .field { color: var(--purple); font-weight: 500; }
+
+  .transition-box {
+    background: var(--cyan-bg);
+    border: 1px solid var(--cyan-pale);
+    border-left: 3px solid var(--cyan);
+    border-radius: 8px; padding: 0.85rem 1.25rem;
+    margin-bottom: 0.85rem;
+    display: flex; gap: 0.75rem; align-items: flex-start;
+  }
+  .trans-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .transition-box p { font-size: 0.855rem; color: #003A50; line-height: 1.65; }
+  .transition-box strong { color: var(--cyan-mid); font-weight: 700; }
+
+  .human-check {
+    background: var(--red-bg);
+    border: 1px solid var(--red-b);
+    border-left: 3px solid var(--red);
+    border-radius: 8px; padding: 0.85rem 1.25rem;
+    margin-bottom: 0.85rem;
+    display: flex; gap: 0.75rem; align-items: flex-start;
+  }
+  .human-check p { font-size: 0.835rem; color: #5A1A1A; line-height: 1.65; }
+  .human-check strong { color: var(--red); font-weight: 700; }
+
+  /* ── NOTEBOOK FLOW ── */
+  .notebook-flow {
+    background: var(--white);
+    border: 1px solid var(--gray-b);
+    border-radius: 8px; padding: 1rem 1.25rem;
+    margin-bottom: 0.85rem;
+  }
+  .notebook-flow .bx-label { color: var(--gray-m); }
+  .nb-step {
+    display: flex; gap: 0.75rem; align-items: flex-start;
+    margin-bottom: 0.5rem; padding-bottom: 0.5rem;
+    border-bottom: 1px dashed var(--gray-b);
+  }
+  .nb-step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .nb-n {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem;
+    background: var(--cyan-bg); color: var(--cyan-mid);
+    border: 1px solid var(--cyan-pale);
+    width: 22px; height: 22px; border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .nb-text { font-size: 0.84rem; color: var(--gray-d); line-height: 1.5; }
+  .nb-text .op {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem;
+    color: var(--cyan-mid); background: var(--cyan-bg);
+    padding: 0.1rem 0.4rem; border-radius: 3px; margin-right: 0.3rem;
+  }
+  .nb-text .arrow { color: var(--cyan); margin: 0 0.3rem; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--cyan-pale) 0%, transparent 100%);
+    margin: 2.5rem 0;
+  }
+
+  /* ── EXP CARDS ── */
+  .exp-grid { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 0.5rem; }
+
+  .exp-card {
+    background: var(--white);
+    border: 1px solid var(--gray-b);
+    border-radius: 10px; overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .exp-card:hover { box-shadow: 0 4px 20px rgba(0,180,216,0.1); }
+
+  .exp-card-header {
+    padding: 0.75rem 1.25rem;
+    display: flex; align-items: center; gap: 0.75rem;
+    border-bottom: 1px solid var(--gray-b);
+    background: var(--gray-l);
+  }
+  .exp-type {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 0.2rem 0.6rem;
+    border-radius: 3px; font-weight: 500;
+  }
+  .type-plan { background: rgba(0,180,216,0.1);  color: var(--cyan-mid); border: 1px solid rgba(0,180,216,0.25); }
+  .type-hook { background: var(--purple-bg);      color: var(--purple);   border: 1px solid var(--purple-b); }
+  .type-eval { background: var(--red-bg);         color: var(--red);      border: 1px solid var(--red-b); }
+  .type-preg { background: var(--green-bg);       color: var(--green);    border: 1px solid var(--green-b); }
+
+  .exp-card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.92rem; font-weight: 700; color: var(--ink);
+  }
+  .exp-card-body { padding: 1.1rem 1.25rem; }
+
+  .exp-prompt {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem;
+    background: var(--blue-bg); border: 1px solid var(--blue-b);
+    border-left: 3px solid var(--cyan);
+    border-radius: 6px; padding: 0.85rem 1rem;
+    color: #0A2A40; line-height: 1.7;
+    margin-bottom: 0.85rem; white-space: pre-wrap;
+  }
+  .exp-output {
+    background: var(--green-bg);
+    border: 1px solid var(--green-b);
+    border-radius: 6px; padding: 0.85rem 1rem;
+    font-size: 0.845rem; color: #1A3528; line-height: 1.7;
+  }
+  .exp-output h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem; font-weight: 700;
+    color: #1A7A35; margin-bottom: 0.5rem;
+  }
+  .exp-output ul { margin: 0.35rem 0 0.35rem 1.2rem; }
+  .exp-output li { margin-bottom: 0.25rem; }
+  .exp-output p { margin-bottom: 0.5rem; }
+  .exp-output strong { font-weight: 700; color: #1A7A35; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    text-align: center; padding: 1.5rem 1rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem; color: #444444;
+    letter-spacing: 0.1em;
+    border-top: 3px solid var(--cyan);
+  }
+  footer span { color: var(--cyan); }
+
+  @media (max-width: 600px) {
+    .step-header { flex-direction: column; gap: 0.5rem; }
+    header { padding: 2rem 1.25rem 1.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <svg width="22" height="22" viewBox="0 0 36 36" fill="none">
+      <circle cx="18" cy="18" r="3.5" fill="#00B4D8"/>
+      <circle cx="6"  cy="8"  r="2.2" fill="#00B4D8" opacity="0.65"/>
+      <circle cx="30" cy="8"  r="2.2" fill="#00B4D8" opacity="0.65"/>
+      <circle cx="6"  cy="28" r="2.2" fill="#00B4D8" opacity="0.65"/>
+      <circle cx="30" cy="28" r="2.2" fill="#00B4D8" opacity="0.65"/>
+      <line x1="18" y1="18" x2="6"  y2="8"  stroke="#00B4D8" stroke-width="1.2" opacity="0.45"/>
+      <line x1="18" y1="18" x2="30" y2="8"  stroke="#00B4D8" stroke-width="1.2" opacity="0.45"/>
+      <line x1="18" y1="18" x2="6"  y2="28" stroke="#00B4D8" stroke-width="1.2" opacity="0.45"/>
+      <line x1="18" y1="18" x2="30" y2="28" stroke="#00B4D8" stroke-width="1.2" opacity="0.45"/>
+    </svg>
+    <div class="nav-brand-text">ETB<span>.education</span></div>
+  </div>
+  <a class="nav-step" href="#paso0">00 · Libro</a>
+  <a class="nav-step" href="#paso1">01 · NotebookLM</a>
+  <a class="nav-step" href="#paso2">02 · Magisterium</a>
+  <a class="nav-step" href="#paso3">03 · Iteración</a>
+  <a class="nav-step" href="#paso-meta">04 · Brief + Prompt</a>
+  <a class="nav-step" href="#paso4">05 · Generar</a>
+</nav>
+
+<!-- HEADER -->
+<header>
+  <div class="hero-eyebrow">Caso de Uso Completo · IA en Educación Religiosa K-12</div>
+  <h1>Los Sacramentos como<br><em>Encuentro con Cristo</em></h1>
+  <p class="hero-sub">Workflow completo desde la perspectiva del docente · 9no grado · Libro → NotebookLM ↔ Magisterium → Brief → Prompt → CopilotERE / MagicSchool</p>
+  <div class="chips">
+    <span class="chip chip-cyan">9no Grado · Religión</span>
+    <span class="chip chip-gray">Cuatro tipos de experiencia de aprendizaje</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- PASO 0 · LIBRO -->
+  <!-- ══════════════════════════════════ -->
+  <section class="step-section" id="paso0">
+    <div class="step-header">
+      <span class="step-badge badge-zero">Paso 00</span>
+      <div class="step-title-block">
+        <div class="step-tool">Plataforma editorial · Libro de texto · Acceso web</div>
+        <div class="step-title">El libro como punto de entrada y generador del primer prompt</div>
+      </div>
+    </div>
+
+    <div class="behavior-box">
+      <div class="bx-label">Comportamiento del docente</div>
+      La Sra. Torres no abre NotebookLM primero — abre la plataforma editorial donde está el libro de religión de 9no grado. Navega a la Unidad 3. En dos o tres minutos identifica: el título del capítulo, los contenidos temáticos, las lecturas bíblicas sugeridas, las actividades de la editorial, y las alineaciones curriculares que la editorial ya publicó. Ese panorama inicial es suficiente para formular la primera pregunta a NotebookLM con dirección clara, no a ciegas.
+    </div>
+
+    <div class="synthesis-box">
+      <div class="bx-label">Lo que el docente anota del libro (2–3 minutos)</div>
+      <div class="synthesis-text">Unidad 3 · Los Sacramentos — 9no grado
+Contenidos: qué es un sacramento / los 7 sacramentos / vivir los sacramentos
+Lecturas bíblicas: Jn 20:19-23 (Reconciliación) · Mt 26:26-28 (Eucaristía)
+Actividades del libro: reflexión sobre el último sacramento recibido
+Recursos digitales: video testimonios de jóvenes y la Confirmación
+Alineación editorial: objetivos vinculados a estándar diocesano (verificar)</div>
+    </div>
+
+    <div class="prompt-box">
+      <div class="bx-label">Primer prompt generado desde el libro → para usar en NotebookLM</div>
+      <div class="prompt-text">Estoy planificando la Unidad 3 de 9no grado sobre los Sacramentos. El libro propone estos contenidos: qué es un sacramento, los 7 sacramentos, y vivir los sacramentos. Según el documento de estándares que tienes cargado, ¿qué dice el estándar oficial sobre esta unidad? ¿Hay algo que el libro no cubre o que debería profundizar más?</div>
+    </div>
+
+    <div class="transition-box">
+      <div class="trans-icon">→</div>
+      <p><strong>Transición:</strong> El libro le dio el contexto inicial y le ayudó a formular una primera pregunta con foco real. La Sra. Torres abre NotebookLM con ese prompt ya listo — entra a buscar, no a explorar a ciegas.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- PASO 1 · NOTEBOOKLM -->
+  <!-- ══════════════════════════════════ -->
+  <section class="step-section" id="paso1">
+    <div class="step-header">
+      <span class="step-badge badge-one">Paso 01</span>
+      <div class="step-title-block">
+        <div class="step-tool">NotebookLM · Fuente: PDF de estándares curriculares</div>
+        <div class="step-title">Conversar con el estándar — sin tecnicismos, con dirección</div>
+      </div>
+    </div>
+
+    <div class="behavior-box">
+      <div class="bx-label">Comportamiento del docente</div>
+      La Sra. Torres tiene el PDF de los estándares curriculares de religión cargado en su notebook. No lo va a leer de cabo a rabo — va a preguntarle en lenguaje natural, como si le preguntara a un colega que lo conoce de memoria. El tono es conversacional, no burocrático. Usa el primer prompt que generó desde el libro y continúa con preguntas de seguimiento según lo que va descubriendo.
+    </div>
+
+    <div class="prompt-box">
+      <div class="bx-label">Prompt 1 · Desde el libro (ya preparado en Paso 0)</div>
+      <div class="prompt-text">Estoy planificando la Unidad 3 de 9no grado sobre los Sacramentos. El libro propone estos contenidos: qué es un sacramento, los 7 sacramentos, y vivir los sacramentos. Según el documento de estándares que tienes cargado, ¿qué dice el estándar oficial sobre esta unidad? ¿Hay algo que el libro no cubre o que debería profundizar más?</div>
+    </div>
+
+    <div class="output-box">
+      <div class="bx-label">Output esperado · NotebookLM</div>
+      <div class="output-text">
+        El estándar establece que al finalizar esta unidad el estudiante debe comprender el sacramento como signo eficaz de la gracia instituido por Cristo, no simplemente como ritual. El libro cubre bien la dimensión cognitiva (qué son, cuántos son), pero el estándar enfatiza también la dimensión actitudinal: que el estudiante <em>valore</em> los sacramentos como encuentros personales con Cristo. Eso no aparece explícitamente en los títulos de los capítulos que describes. También aparece un estándar de habilidad: analizar textos bíblicos y del Catecismo como fuentes de comprensión sacramental.
+      </div>
+    </div>
+
+    <div class="prompt-box">
+      <div class="bx-label">Prompt 2 · Seguimiento conversacional</div>
+      <div class="prompt-text">¿Qué se supone que mis estudiantes ya saben sobre esto cuando llegan a 9no? ¿Hay algo de grados anteriores que conecte directamente?</div>
+    </div>
+
+    <div class="output-box">
+      <div class="bx-label">Output esperado · NotebookLM</div>
+      <div class="output-text">
+        Según el documento, los estudiantes de 9no deberían llegar con base en: el concepto de gracia (trabajado en 7mo), la Iglesia como comunidad de fe (8vo), y el uso del signo y símbolo en la liturgia (8vo). La unidad de Sacramentos en 9no es profundización y personalización de esos contenidos, no introducción desde cero.
+      </div>
+    </div>
+
+    <div class="notebook-flow">
+      <div class="bx-label">Qué hace el docente con estos outputs</div>
+      <div class="nb-step">
+        <div class="nb-n">1</div>
+        <div class="nb-text">Selecciona los outputs más útiles de la conversación <span class="arrow">→</span> <span class="op">Guardar como Note</span></div>
+      </div>
+      <div class="nb-step">
+        <div class="nb-n">2</div>
+        <div class="nb-text">Desde la Note <span class="arrow">→</span> <span class="op">Convertir en Source</span> (queda disponible para el notebook)</div>
+      </div>
+      <div class="nb-step">
+        <div class="nb-n">3</div>
+        <div class="nb-text">Pausa: vuelve al libro para verificar si lo que descubrió está cubierto, ausente o subdesarrollado en el texto</div>
+      </div>
+    </div>
+
+    <div class="human-check">
+      <div class="trans-icon">⚠</div>
+      <p><strong>Revisión transversal:</strong> El docente verifica que los objetivos descritos por NotebookLM corresponden al texto real del documento. NotebookLM trabaja con las fuentes cargadas, pero la validación final es responsabilidad del maestro. Esta revisión toma 2 minutos, no 20.</p>
+    </div>
+
+    <div class="transition-box">
+      <div class="trans-icon">→</div>
+      <p><strong>Transición:</strong> Tiene claridad sobre <em>qué</em> debe aprender el estudiante según el currículo oficial. Ahora necesita asegurarse de que el contenido doctrinal esté fundamentado. Abre Magisterium AI.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- PASO 2 · MAGISTERIUM -->
+  <!-- ══════════════════════════════════ -->
+  <section class="step-section" id="paso2">
+    <div class="step-header">
+      <span class="step-badge badge-two">Paso 02</span>
+      <div class="step-title-block">
+        <div class="step-tool">Magisterium AI</div>
+        <div class="step-title">Validar fuentes doctrinales — iterar hasta tener lo que necesita</div>
+      </div>
+    </div>
+
+    <div class="behavior-box">
+      <div class="bx-label">Comportamiento del docente</div>
+      La Sra. Torres entra a Magisterium con un objetivo concreto: encontrar fuentes del Magisterio que fundamenten el sacramento como <em>encuentro personal con Cristo</em> — exactamente la dimensión que el estándar pide y que el libro no desarrolla suficientemente. Hace dos rondas: una amplia, una refinada para su audiencia específica.
+    </div>
+
+    <div class="prompt-box">
+      <div class="bx-label">Prompt 1 · Consulta inicial</div>
+      <div class="prompt-text">¿Qué enseña el Magisterio de la Iglesia sobre los sacramentos como encuentro personal con Cristo? Busca en el Catecismo, documentos del Vaticano II y encíclicas relevantes. Incluye referencias precisas.</div>
+    </div>
+
+    <div class="output-box">
+      <div class="bx-label">Output esperado · Magisterium AI</div>
+      <div class="output-text">
+        <strong>CIC 1084:</strong> Cristo actúa por medio de los sacramentos; el ministro actúa in persona Christi.<br><br>
+        <strong>Sacrosanctum Concilium 7 (Vaticano II):</strong> Cristo está presente en los sacramentos de modo que cuando alguien bautiza, es Cristo quien bautiza.<br><br>
+        <strong>Sacramentum Caritatis (Benedicto XVI, 2007):</strong> La Eucaristía como corazón de la vida cristiana donde el encuentro con Cristo es personal, histórico y escatológico.
+      </div>
+    </div>
+
+    <div class="prompt-box">
+      <div class="bx-label">Prompt 2 · Iteración para audiencia adolescente</div>
+      <div class="prompt-text">De esas fuentes, ¿cuál funciona mejor para adolescentes de 14-15 años que perciben los sacramentos como obligación más que como relación? ¿Hay algún documento que hable directamente a los jóvenes sobre este tema?</div>
+    </div>
+
+    <div class="output-box">
+      <div class="bx-label">Output esperado · Magisterium AI (iteración)</div>
+      <div class="output-text">
+        <strong>Christus Vivit (Francisco, 2019)</strong> es el más accesible para esa audiencia. Habla directamente a los jóvenes sobre Cristo como alguien que los conoce por nombre. Los números 117–120 conectan con el lenguaje adolescente sobre autenticidad e identidad, y sitúan los sacramentos —especialmente Eucaristía y Reconciliación— como espacios de conversación personal con Cristo.
+      </div>
+    </div>
+
+    <div class="notebook-flow">
+      <div class="bx-label">Qué hace el docente con los outputs de Magisterium</div>
+      <div class="nb-step">
+        <div class="nb-n">1</div>
+        <div class="nb-text">Copia los outputs relevantes a un <span class="op">Google Doc</span> en su Drive (no a un archivo local)</div>
+      </div>
+      <div class="nb-step">
+        <div class="nb-n">2</div>
+        <div class="nb-text">Vuelve a NotebookLM <span class="arrow">→</span> <span class="op">Añadir fuente</span> → selecciona el Google Doc directamente desde Drive</div>
+      </div>
+      <div class="nb-step">
+        <div class="nb-n">3</div>
+        <div class="nb-text">El notebook ahora tiene: estándares + outputs de Magisterium. El libro sigue disponible como referencia de contraste.</div>
+      </div>
+    </div>
+
+    <div class="human-check">
+      <div class="trans-icon">⚠</div>
+      <p><strong>Revisión transversal:</strong> El docente verifica las referencias en sus fuentes originales antes de usarlas. Magisterium AI acota sus fuentes al Magisterio oficial, lo que reduce el riesgo de alucinación — pero la verificación sigue siendo responsabilidad del maestro. Si una cita no se puede rastrear, no se usa.</p>
+    </div>
+
+    <div class="transition-box">
+      <div class="trans-icon">→</div>
+      <p><strong>Transición:</strong> El notebook tiene estándares, fuentes doctrinales y el libro como contraste. Es el momento de pedirle a NotebookLM que consolide todo en un brief — y luego que genere el prompt que alimentará CopilotERE.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- PASO 3 · ITERACIÓN LIBRO -->
+  <!-- ══════════════════════════════════ -->
+  <section class="step-section" id="paso3">
+    <div class="step-header">
+      <span class="step-badge badge-three">Paso 03</span>
+      <div class="step-title-block">
+        <div class="step-tool">Libro · Respaldo durante la iteración</div>
+        <div class="step-title">El libro reaparece: ¿qué cubre, qué falta, qué recursos integrar?</div>
+      </div>
+    </div>
+
+    <div class="behavior-box">
+      <div class="bx-label">Comportamiento del docente</div>
+      Mientras itera entre NotebookLM y Magisterium, la Sra. Torres regresa al libro con preguntas más precisas que al inicio. Ya sabe lo que el estándar exige y lo que la doctrina fundamenta. Ahora usa el libro como contraste y como fuente de recursos concretos: ¿el libro cubre la dimensión actitudinal? ¿Qué actividades existen ya? ¿Qué recursos digitales puede integrar sin construir desde cero?
+    </div>
+
+    <div class="synthesis-box">
+      <div class="bx-label">Decisiones que toma el docente desde el libro en esta etapa</div>
+      <div class="synthesis-text">✓  El video de testimonios de jóvenes (Confirmación) → lo usará como hook
+✓  La reflexión personal del libro ("último sacramento recibido") → punto de partida para evaluación auténtica
+✗  Los objetivos del capítulo del libro → insuficientes en dimensión actitudinal, se complementan con estándar
+→  Añade al Google Doc de Magisterium: una nota sobre los recursos del libro que integrar</div>
+    </div>
+
+    <div class="transition-box">
+      <div class="trans-icon">→</div>
+      <p><strong>Transición:</strong> El notebook está completo: estándares + fuentes doctrinales + anotaciones del libro. Momento de consolidar en brief y luego pedir el prompt.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- PASO META · BRIEF + PROMPT -->
+  <!-- ══════════════════════════════════ -->
+  <section class="step-section" id="paso-meta">
+    <div class="step-header">
+      <span class="step-badge badge-meta">Paso 04 · Meta-uso</span>
+      <div class="step-title-block">
+        <div class="step-tool">NotebookLM · Con todas las fuentes cargadas</div>
+        <div class="step-title">NotebookLM genera el brief — y luego genera el prompt</div>
+      </div>
+    </div>
+
+    <div class="behavior-box">
+      <div class="bx-label">Comportamiento del docente</div>
+      Este es el momento metodológicamente más poderoso del workflow. La Sra. Torres le pide a NotebookLM que consolide todo lo que tiene cargado en un brief de planificación. Lo convierte en Note y luego en Source. Desactiva todas las fuentes excepto el brief. Y entonces le pide algo que pocas personas hacen: que genere el prompt que ella va a usar en CopilotERE. NotebookLM conoce el contexto completo — es el redactor ideal del briefing para la siguiente herramienta.
+    </div>
+
+    <div class="meta-box">
+      <div class="bx-label">Prompt al notebook · Con todas las fuentes activas</div>
+      <div class="meta-text">Con todo lo que tienes cargado — estándares, fuentes doctrinales y recursos del libro — genera un brief de planificación para la Unidad 3 de Sacramentos de 9no grado. Debe incluir: objetivo central de la unidad, conocimientos previos, fuentes doctrinales clave con referencia, tensión pedagógica que resolver, perfil del estudiante, y recursos disponibles del libro.</div>
+    </div>
+
+    <div class="output-box">
+      <div class="bx-label">Output esperado · Brief generado por NotebookLM</div>
+      <div class="output-text">
+        <strong>Unidad:</strong> Los Sacramentos como encuentro con Cristo · 9no grado · Unidad 3<br><br>
+        <strong>Objetivo central:</strong> Que el estudiante comprenda el sacramento como signo eficaz de la gracia (CIC 1084) y lo viva como relación personal con Cristo, superando la percepción de ritual obligatorio.<br><br>
+        <strong>Conocimientos previos:</strong> Concepto de gracia (7mo), Iglesia como comunidad de fe (8vo), signo y símbolo litúrgico (8vo).<br><br>
+        <strong>Fuentes doctrinales:</strong> CIC 1084 · Sacrosanctum Concilium 7 · Christus Vivit 117–120.<br><br>
+        <strong>Tensión pedagógica:</strong> Los estudiantes perciben los sacramentos como obligación ritual. La unidad debe mover esa percepción hacia la de encuentro personal auténtico.<br><br>
+        <strong>Perfil:</strong> 14–15 años, cultura visual y digital, buscan autenticidad en su fe.<br><br>
+        <strong>Recursos del libro:</strong> Video testimonios jóvenes/Confirmación (hook) · Reflexión personal sobre último sacramento recibido (evaluación).
+      </div>
+    </div>
+
+    <div class="notebook-flow">
+      <div class="bx-label">Qué hace el docente con el brief</div>
+      <div class="nb-step">
+        <div class="nb-n">1</div>
+        <div class="nb-text">Revisa y valida el brief — ajusta cualquier detalle que no refleje su contexto real <span class="arrow">→</span> revisión transversal</div>
+      </div>
+      <div class="nb-step">
+        <div class="nb-n">2</div>
+        <div class="nb-text">Guarda el brief como <span class="op">Note</span> en el notebook</div>
+      </div>
+      <div class="nb-step">
+        <div class="nb-n">3</div>
+        <div class="nb-text">Convierte la Note en <span class="op">Source</span></div>
+      </div>
+      <div class="nb-step">
+        <div class="nb-n">4</div>
+        <div class="nb-text"><strong>Desactiva todas las fuentes excepto el brief</strong> — el notebook trabaja exclusivamente desde ahí</div>
+      </div>
+    </div>
+
+    <div class="meta-box">
+      <div class="bx-label">Prompt al notebook · Solo con el brief como source activa</div>
+      <div class="meta-text">Usando exclusivamente este brief, genera un prompt en formato Rol-Contexto-Tarea para usar con un asistente de planificación de religión (CopilotERE). El prompt debe ser directo, completo y listo para ejecutar. Que incluya el perfil del estudiante, la tensión pedagógica, las fuentes doctrinales y el tipo de experiencia que quiero generar.</div>
+    </div>
+
+    <div class="meta-output">
+      <div class="bx-label">Output esperado · Prompt generado por NotebookLM → listo para CopilotERE</div>
+      <div class="meta-output-text"><span class="field">ROL:</span>
+Actúa como asistente pedagógico especializado en educación religiosa católica K-12.
+
+<span class="field">CONTEXTO:</span>
+Estoy planificando la Unidad 3 de 9no grado sobre Los Sacramentos.
+- Objetivo: que el estudiante comprenda el sacramento como signo eficaz de la gracia
+  (CIC 1084) y lo experiencie como relación personal con Cristo, no como ritual vacío.
+- Estudiantes: 14-15 años, cultura visual y digital, perciben los sacramentos como
+  obligación. Buscan autenticidad.
+- Conocimientos previos: gracia (7mo), Iglesia comunidad de fe (8vo), signo litúrgico (8vo).
+- Fuentes doctrinales validadas: CIC 1084 · Sacrosanctum Concilium 7 · Christus Vivit 117-120.
+- Recursos disponibles del libro: video testimonios jóvenes/Confirmación · reflexión
+  personal sobre último sacramento recibido.
+
+<span class="field">TAREA:</span>
+Diseña [TIPO DE EXPERIENCIA] para esta unidad. Usa las fuentes doctrinales como
+fundamento, integra los recursos del libro, y resuelve la tensión pedagógica:
+mover al estudiante de la percepción de obligación ritual hacia la de encuentro personal.</div>
+    </div>
+
+    <div class="human-check">
+      <div class="trans-icon">⚠</div>
+      <p><strong>Revisión antes de ejecutar:</strong> El docente lee el prompt generado y valida que refleja su intención. Puede ajustar el campo <em>[TIPO DE EXPERIENCIA]</em> según lo que necesite: plan de clase, hook, evaluación auténtica, preguntas esenciales. Esta revisión es el último momento de autoría antes de que la herramienta genere.</p>
+    </div>
+
+    <div class="transition-box">
+      <div class="trans-icon">→</div>
+      <p><strong>Transición:</strong> La Sra. Torres tiene un prompt construido desde sus propias fuentes validadas. Lo copia y lo lleva a CopilotERE — o a MagicSchool, dependiendo de lo que necesite. La diferencia en el output va a ser evidente.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- PASO 4 · GENERACIÓN -->
+  <!-- ══════════════════════════════════ -->
+  <section class="step-section" id="paso4">
+    <div class="step-header">
+      <span class="step-badge badge-four">Paso 05</span>
+      <div class="step-title-block">
+        <div class="step-tool">CopilotERE (GPT) · MagicSchool AI</div>
+        <div class="step-title">Del prompt validado a las cuatro experiencias de aprendizaje</div>
+      </div>
+    </div>
+
+    <div class="behavior-box">
+      <div class="bx-label">Comportamiento del docente · Cuándo usar cuál</div>
+      <strong>CopilotERE:</strong> cuando quiere diálogo, iteración y que el asistente recuerde el contexto a lo largo de la conversación. Ideal para generar múltiples tipos de experiencia en una sola sesión o para refinar con preguntas de seguimiento.<br><br>
+      <strong>MagicSchool AI:</strong> cuando sabe exactamente qué recurso necesita y quiere generarlo rápido con una herramienta específica (Lesson Plan Generator, Hook Activity, Rubric Generator). El mismo prompt funciona — solo cambia la herramienta de destino.
+    </div>
+
+    <div class="exp-grid">
+
+      <!-- PLAN DE CLASE -->
+      <div class="exp-card">
+        <div class="exp-card-header">
+          <span class="exp-type type-plan">Plan de clase</span>
+          <div class="exp-card-title">Clase completa · 50 minutos</div>
+        </div>
+        <div class="exp-card-body">
+          <div class="exp-prompt">ROL: Actúa como asistente pedagógico especializado en educación religiosa católica K-12.
+
+CONTEXTO: [brief completo — ver Paso 04]
+
+TAREA: Diseña un plan de clase de 50 minutos para introducir la Unidad 3 de Sacramentos. Incluye: objetivo, materiales, secuencia de momentos (apertura, desarrollo, cierre), estrategias activas, y cómo integrar el video de testimonios del libro. Lenguaje directo para el docente.</div>
+          <div class="exp-output">
+            <h4>Output esperado · Plan de clase</h4>
+            <p><strong>Objetivo:</strong> El estudiante distingue entre sacramento como ritual y sacramento como encuentro, usando testimonios reales y texto del Magisterio como evidencia.</p>
+            <p><strong>Apertura (10 min):</strong> Video de testimonios de jóvenes sobre la Confirmación. Pregunta detonadora: "¿Qué tienes en común con estos jóvenes? ¿Qué te sorprendió?"</p>
+            <p><strong>Desarrollo (30 min):</strong> Lectura dialogada de Christus Vivit 117 en grupos de 3. Cada grupo responde: ¿qué dice Cristo sobre conocerte? Presentación breve del CIC 1084 en lenguaje accesible. Actividad: línea del tiempo personal de sacramentos recibidos + una palabra que describe cómo se sintieron.</p>
+            <p><strong>Cierre (10 min):</strong> Plenaria. El docente conecta las palabras de los estudiantes con el concepto de encuentro. Asignación: entrevistar a un familiar sobre el significado de su Bautismo o Matrimonio.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- HOOK -->
+      <div class="exp-card">
+        <div class="exp-card-header">
+          <span class="exp-type type-hook">Actividad de apertura</span>
+          <div class="exp-card-title">Hook · 10–12 minutos · Alto impacto</div>
+        </div>
+        <div class="exp-card-body">
+          <div class="exp-prompt">ROL + CONTEXTO: [brief completo]
+
+TAREA: Diseña una actividad de apertura (hook) de 10-12 minutos para el primer día de la unidad. Debe provocar disonancia cognitiva respecto a percibir los sacramentos como ritual. No debe explicar nada todavía — debe generar preguntas. Memorable para adolescentes de hoy.</div>
+          <div class="exp-output">
+            <h4>Output esperado · Hook</h4>
+            <p><strong>"La última vez que alguien te llamó por tu nombre"</strong></p>
+            <p>Silencio total. El docente dice: "Cierra los ojos. Piensa en la última vez que alguien te llamó por tu nombre —no para pedirte algo, sino para decirte algo importante. Recuerda quién era, dónde estaban, qué sentiste." 30 segundos. "Escribe esa escena en tres líneas."</p>
+            <p>Tres voluntarios comparten. El docente no comenta — proyecta: <em>Christus Vivit 117: "Él te conoce por tu nombre."</em> Y dice: "Esta unidad va a volver a ese momento."</p>
+            <p><strong>Por qué funciona:</strong> activa la dimensión relacional antes de introducir vocabulario religioso. El estudiante conecta primero desde su experiencia humana.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- EVALUACIÓN -->
+      <div class="exp-card">
+        <div class="exp-card-header">
+          <span class="exp-type type-eval">Evaluación alternativa</span>
+          <div class="exp-card-title">Evaluación auténtica · Fin de unidad</div>
+        </div>
+        <div class="exp-card-body">
+          <div class="exp-prompt">ROL + CONTEXTO: [brief completo]
+
+TAREA: Diseña una evaluación auténtica para el final de la unidad. Debe evaluar comprensión conceptual Y dimensión actitudinal. Evita el examen tradicional. El producto final debe demostrar comprensión real. Integra la reflexión personal del libro como punto de partida. Incluye rúbrica de 3 niveles.</div>
+          <div class="exp-output">
+            <h4>Output esperado · Evaluación auténtica</h4>
+            <p><strong>"Mi carta a un sacramento"</strong></p>
+            <p>Partiendo de la reflexión del libro (último sacramento recibido), el estudiante escribe una carta personal dirigida a Cristo —no al sacramento como objeto— en la que: (1) describe cómo entendía ese sacramento antes de la unidad, (2) cómo lo entiende ahora, (3) qué cambiaría en cómo lo vive. Mínimo 300 palabras. Puede incluir imagen, símbolo o cita de su elección.</p>
+            <ul>
+              <li><strong>Logrado:</strong> Comprensión del sacramento como encuentro; conexión con fuente doctrinal; reflexión auténtica visible.</li>
+              <li><strong>En proceso:</strong> Comprensión parcial; cita fuente sin integración; reflexión superficial.</li>
+              <li><strong>Inicial:</strong> Describe el sacramento en términos rituales únicamente; sin transformación conceptual evidente.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- PREGUNTAS ESENCIALES -->
+      <div class="exp-card">
+        <div class="exp-card-header">
+          <span class="exp-type type-preg">Preguntas esenciales</span>
+          <div class="exp-card-title">Hilo conductor · Toda la unidad</div>
+        </div>
+        <div class="exp-card-body">
+          <div class="exp-prompt">ROL + CONTEXTO: [brief completo]
+
+TAREA: Genera una secuencia de 5 preguntas esenciales que funcionen como hilo conductor de toda la unidad. De lo más concreto y cercano al estudiante hacia lo más teológico y trascendente. Cada pregunta puede vivir sola en una clase, pero las cinco juntas cuentan una historia de crecimiento. Sin respuesta única.</div>
+          <div class="exp-output">
+            <h4>Output esperado · Preguntas esenciales</h4>
+            <ul>
+              <li><strong>Clase 1:</strong> ¿Cuándo fue la última vez que sentiste que alguien realmente te veía?</li>
+              <li><strong>Clase 2:</strong> ¿Qué diferencia hay entre hacer algo por costumbre y hacerlo porque lo elegiste?</li>
+              <li><strong>Clase 3:</strong> Si los sacramentos son encuentros reales con Cristo, ¿qué cambiaría en cómo los vives?</li>
+              <li><strong>Clase 4:</strong> ¿Puede un signo externo —agua, aceite, pan— cambiar algo internamente? ¿Por qué sí o no?</li>
+              <li><strong>Clase 5:</strong> ¿Qué tipo de persona quieres ser, y cómo los sacramentos pueden ayudarte a serlo?</li>
+            </ul>
+            <p style="margin-top:0.6rem; font-style:italic; color:#1A7A35;">Nota: estas preguntas no se "responden" — se discuten, se escriben en diario reflexivo, se retoman. Son la columna vertebral afectiva de la unidad.</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end exp-grid -->
+
+    <div class="human-check" style="margin-top:1.25rem">
+      <div class="trans-icon">⚠</div>
+      <p><strong>Revisión transversal — siempre, en cada output:</strong> La Sra. Torres revisa cada experiencia con tres preguntas: ¿Es teológicamente precisa? ¿Es pedagógicamente adecuada para mis estudiantes específicos? ¿Es mía — puedo ejecutarla con convicción? La IA produjo el borrador. El docente produce la lección.</p>
+    </div>
+
+    <div class="transition-box" style="margin-top:0.85rem">
+      <div class="trans-icon">✓</div>
+      <p><strong>Resultado del workflow completo:</strong> En 45–60 minutos de trabajo intencional, la Sra. Torres tiene estándares mapeados, doctrina validada, libro integrado, brief consolidado, prompt generado por la propia IA desde sus fuentes, y cuatro tipos de experiencia listos para adaptar. Todo construido sobre contexto real — no sobre suposiciones de la herramienta.</p>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <span>[EdTech Believers]</span> ETB.education · IA para Maestros de Religión K-12 · Caso de uso: Los Sacramentos · 9no Grado · 2026
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('.step-section');
+  const navLinks = document.querySelectorAll('.nav-step');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.nav-step[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
